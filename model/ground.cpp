@@ -1,0 +1,67 @@
+#include "ground.h"
+
+#include <QRandomGenerator>
+#include <qmath.h>
+
+#include <QDebug>
+
+Ground::Ground(QSizeF const& size):
+	pth(Ground::buildPath(size)),
+	originSize(size)
+{
+
+}
+
+template <typename T> int sgn(T val) {
+	return (T(0) < val) - (val < T(0));
+}
+
+QPainterPath Ground::buildPath(QSizeF const& size)
+{
+	qreal height = size.height() - 120;
+	QPainterPath pth;
+	qreal x = 0;
+	qreal y = QRandomGenerator::global()->bounded(height);
+	pth.moveTo(x, y);
+	while (x < size.width())
+	{
+		//qreal nextY = QRandomGenerator::global()->bounded(size.height());
+		qreal nextX = x + QRandomGenerator::global()->bounded(size.width() / 10);
+		qreal angle = QRandomGenerator::global()->bounded(20.) - 10;
+		qreal boundY = (nextX - x) * qSin(qDegreesToRadians(angle));
+		qreal nextY = qMax(0.0, qMin(height, y + boundY));
+		qDebug() << angle << nextY;
+		//QLineF l(x, y, x + nextX, nextY);
+		pth.lineTo(nextX, nextY);
+		x += nextX;
+		y = nextY;
+	}
+	pth.lineTo(size.width(), y);
+	pth.translate(0, 100);
+	return pth;
+}
+
+QPointF Ground::startPoint() const
+{
+	return pth.pointAtPercent(0);
+}
+
+QPainterPath const& Ground::path() const
+{
+	return pth;
+}
+
+QSizeF Ground::size() const
+{
+	return originSize;
+}
+
+qreal Ground::length() const
+{
+	return pth.length();
+}
+
+QPointF Ground::projection(qreal distance) const
+{
+	return path().pointAtPercent(pth.percentAtLength(distance));
+}

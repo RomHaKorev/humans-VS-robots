@@ -1,0 +1,17 @@
+#include "world.h"
+
+World::World() : QObject()
+{
+
+}
+
+Character World::createCharacter()
+{
+	return Character()
+}
+
+World& World::instance()
+{
+	static World instance;
+	return instance;
+}
