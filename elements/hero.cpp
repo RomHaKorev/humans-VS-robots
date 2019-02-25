@@ -5,7 +5,7 @@
 
 #include "../model/ground.h"
 
-Hero::Hero(Ground const& ground): CharacterItem(SpritesManager::hero(0), ground)
+Hero::Hero(): CharacterItem(SpritesManager::hero(0))
 {
 
 }

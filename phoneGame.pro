@@ -1,4 +1,4 @@
-QT += quick widgets
+QT += quick widgets svg xml
 CONFIG += c++14
 
 # The following define makes your compiler emit warnings if you use
@@ -23,7 +23,8 @@ SOURCES += \
     elements/grounditem.cpp \
     model/ground.cpp \
     model/world.cpp \
-    model/elementengine.cpp
+    model/elementengine.cpp \
+    elements/bullet.cpp
 
 HEADERS += \
     core/circularsprites.h \
@@ -36,7 +37,8 @@ HEADERS += \
     elements/grounditem.h \
     model/ground.h \
     model/world.h \
-    model/elementengine.h
+    model/elementengine.h \
+    elements/bullet.h
 
 RESOURCES += qml.qrc
 

@@ -2,58 +2,45 @@
 #include "../model/character.h"
 
 #include "../model/ground.h"
+#include "../model/world.h"
 
 #include <QPainter>
+#include <QBitmap>
+#include <QRegion>
 #include <QPropertyAnimation>
+#include <QtSvg/QSvgRenderer>
+
+#include "bullet.h"
 
 
-CharacterItem::CharacterItem(Character const& sprites, Ground const& ground):
+CharacterItem::CharacterItem(Character const& sprites):
 	QQuickPaintedItem(),
 	moveStatus(Move::Standing),
-	currentDirection(Direction::Right),
 	sprites(sprites),
-	propDistance(0.0),
 	propLegMovement(0),
-	ground(ground)
+	engine(World::newEngine(this))
 {
-	moveAnimation = new QPropertyAnimation(this, "distance");
-	moveAnimation->setDuration(90000);
-	moveAnimation->setStartValue(0.0);
-	moveAnimation->setEndValue(ground.length());
 	legAnimation = new QPropertyAnimation(this, "legMovement");
 	legAnimation->setDuration(500);
 	legAnimation->setStartValue(0);
 	legAnimation->setEndValue(sprites.runStepCount());
 	legAnimation->setLoopCount(-1);
 
-	setSize(QSizeF(100, 100));
-	setX(0);
-	setY(0);
-	//setPixmap(sprites.pixmap(moveStatus, currentDirection, propLegMovement));
+	setSize(characterSize);
+	connect(engine, &ElementEngine::moved, this, &CharacterItem::updatePosition);
+
+	updatePosition();
 }
 
 QRectF CharacterItem::boundingRect() const
 {
-	return QRectF(QPointF(0, 0), QSizeF(100, 100));
+	return QRectF(QPointF(0, 0), size());
 }
 
 void CharacterItem::paint(QPainter *painter)
 {
 	painter->setRenderHint(QPainter::Antialiasing);
-	sprites.paint(*painter, moveStatus, currentDirection, propLegMovement);
-}
-
-void CharacterItem::setDistance(qreal distance)
-{
-	propDistance = distance;
-	QPointF const position(ground.projection(distance) - QPointF(0, boundingRect().height()));
-	setX(position.x());
-	setY(position.y());
-}
-
-qreal CharacterItem::distance() const
-{
-	return propDistance;
+	sprites.paint(*painter, moveStatus, engine->direction(), propLegMovement);
 }
 
 unsigned int CharacterItem::legMovement() const
@@ -67,44 +54,59 @@ void CharacterItem::setLegMovement(unsigned int value)
 	update();
 }
 
-void CharacterItem::move(Move status)
-{
-	move(status, currentDirection);
-}
-
-void CharacterItem::move(Move status, Direction direction)
-{
-	moveStatus = status;
-	if (currentDirection != direction)
-		propLegMovement = 0;
-	currentDirection = direction;
-	//setPixmap(sprites.pixmap(moveStatus, currentDirection, propLegMovement));
-}
 
 void CharacterItem::moveRight()
 {
-	move(Move::Moving, Direction::Right);
-	moveAnimation->start();
+	moveStatus = Move::Moving;
+	engine->move(Direction::Right);
 	legAnimation->start();
 }
 
 void CharacterItem::moveLeft()
 {
-	move(Move::Moving, Direction::Left);
+	moveStatus = Move::Moving;
+	engine->move(Direction::Left);
+	legAnimation->start();
 }
 
 void CharacterItem::stand()
 {
-	move(Move::Standing);
-	moveAnimation->pause();
+	moveStatus = Move::Standing;
+	engine->stop();
 	legAnimation->stop();
-	//setPixmap(sprites.pixmap(moveStatus, currentDirection, propLegMovement));
+	update();
 }
 
 void CharacterItem::kneel()
 {
-	move(Move::Kneeling);
-	moveAnimation->pause();
+	moveStatus = Move::Kneeling;
+	engine->stop();
 	legAnimation->stop();
-	//setPixmap(sprites.pixmap(moveStatus, currentDirection, propLegMovement));
+	update();
+}
+
+void CharacterItem::updatePosition()
+{
+	QPointF const pos = engine->position();
+	setX(pos.x() - width()/2);
+	setY(pos.y() - height());
+}
+
+void CharacterItem::fire()
+{
+	QPointF offset(width(), height()/2 -5);
+	if (engine->direction() == Direction::Left)
+		offset.setX(-10);
+	if (moveStatus == Move::Kneeling)
+		offset.setY(height()/2);
+	Bullet* b = new Bullet(position() + offset, engine->direction(), this, parentItem());
+	b->setParent(parent());
+}
+
+bool CharacterItem::contains(QPointF const& point) const
+{
+	QBitmap const b(sprites.pixmap(moveStatus, engine->direction(), propLegMovement));
+	QRegion region(b);
+	region.translate(position().toPoint());
+	return region.contains(point.toPoint());
 }

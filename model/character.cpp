@@ -11,7 +11,9 @@ Character::Character(QDir const& spritesDirectory):
 
 void Character::paint(QPainter& painter, Move moveStatus, Direction direction, unsigned int step) const
 {
-	painter.drawPixmap(0, 0, pixmap(moveStatus, direction, step));
+	QPixmap pix(pixmap(moveStatus, direction, step));
+	pix.setDevicePixelRatio(painter.device()->devicePixelRatioF());
+	painter.drawPixmap(0, 0, pix);
 }
 
 QPixmap const& Character::pixmap(Move moveStatus, Direction direction, unsigned int step) const

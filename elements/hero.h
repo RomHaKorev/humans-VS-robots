@@ -9,7 +9,7 @@ class Character;
 class Hero : public CharacterItem
 {
 public:
-	Hero(Ground const& ground);
+	Hero();
 };
 
 #endif // HERO_H

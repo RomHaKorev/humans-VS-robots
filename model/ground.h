@@ -7,14 +7,17 @@ class Ground
 {
 public:
 	Ground(QSizeF const& size);
+	Ground(Ground const& other);
 	QPointF projection(qreal distance) const;
 	QPainterPath const& path() const;
 	QSizeF size() const;
 	qreal length() const;
 	QPointF startPoint() const;
+
+	Ground& operator=(Ground const& other);
 private:
-	QPainterPath const pth;
-	QSizeF const originSize;
+	QPainterPath pth;
+	QSizeF originSize;
 	static QPainterPath buildPath(QSizeF const& size);
 };
 

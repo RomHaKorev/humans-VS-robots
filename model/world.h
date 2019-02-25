@@ -2,6 +2,7 @@
 #define WORLD_H
 
 #include <QObject>
+#include "elementengine.h"
 
 class World : public QObject
 {
@@ -9,9 +10,15 @@ class World : public QObject
 public:
 	World(World const&) = delete;
 	void operator=(World const&) = delete;
+	static ElementEngine* newEngine(QObject* parent = nullptr);
+	static void init(QSizeF const& size);
+	static Ground* ground();
 private:
-	World();
-	static World& instance();
+	Ground* m_ground;
+	World(QSizeF const& size);
+	void reset(QSizeF const& size);
+	static World& instance(QSizeF const& size = QSizeF());
+	ElementEngine* createEngine(QObject* parent = nullptr) const;
 };
 
 #endif // WORLD_H

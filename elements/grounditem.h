@@ -9,7 +9,7 @@
 class GroundItem : public QQuickPaintedItem
 {
 public:
-	GroundItem(Ground const& ground);
+	GroundItem();
 	virtual QRectF boundingRect() const override;
 	virtual void paint(QPainter *painter) override;
 private:

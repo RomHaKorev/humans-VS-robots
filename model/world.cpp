@@ -1,19 +1,40 @@
 #include "world.h"
 
-World::World() : QObject()
+World::World(QSizeF const& size) : QObject(),
+	m_ground(new Ground((size)))
 {
-
 }
 
-
-World const& World::instance()
+void World::init(QSizeF const& size)
 {
-	static World const instance();
+	instance().reset(size);
+}
+
+void World::reset(QSizeF const& size)
+{
+	m_ground = new Ground(size);
+}
+
+Ground* World::ground()
+{
+	return instance().m_ground;
+}
+
+ElementEngine* World::createEngine(QObject* parent) const
+{
+	return new ElementEngine(*m_ground, parent);
+}
+
+World& World::instance(QSizeF const& size)
+{
+	static World instance(size);
+	if (size.isValid())
+		instance.reset(size);
 	return instance;
 }
 
-World const& World::instance()
+
+ElementEngine* World::newEngine(QObject* parent)
 {
-	static World const instance();
-	return instance;
+	return instance().createEngine(parent);
 }

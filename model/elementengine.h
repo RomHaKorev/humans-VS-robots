@@ -5,6 +5,7 @@
 #include <QPropertyAnimation>
 
 #include "ground.h"
+#include "../common.h"
 
 class ElementEngine : public QObject
 {
@@ -14,19 +15,23 @@ public:
 	explicit ElementEngine(Ground const& ground, QObject *parent = nullptr);
 	qreal distance() const;
 	void setDistance(qreal);
+	QPointF position() const;
+	Direction direction() const;
 
 private:
 	Ground const& ground;
 	qreal propDistance;
 	QPropertyAnimation* animation;
-	QPointF position;
+	Direction currentDirection;
+	qreal endValue(Direction direction);
+
+	int duration(qreal distance);
 
 signals:
 	void moved();
 
 public slots:
-	void moveLeft();
-	void moveRight();
+	void move(Direction direction);
 	void stop();
 };
 

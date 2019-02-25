@@ -1,6 +1,8 @@
 #ifndef COMMON_H
 #define COMMON_H
 
+#include <QSize>
+
 enum Move
 {
 	Standing = 0,
@@ -13,5 +15,7 @@ enum Direction
 	Left = 0,
 	Right = 1
 };
+
+QSize const characterSize(50, 50);
 
 #endif // COMMON_H

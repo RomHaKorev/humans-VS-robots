@@ -12,13 +12,26 @@ Ground::Ground(QSizeF const& size):
 
 }
 
+Ground::Ground(Ground const& other):
+	pth(other.pth),
+	originSize(other.originSize)
+{
+}
+
+Ground& Ground::operator=(Ground const& other)
+{
+	this->pth = other.pth;
+	this->originSize = other.originSize;
+	return *this;
+}
+
 template <typename T> int sgn(T val) {
 	return (T(0) < val) - (val < T(0));
 }
 
 QPainterPath Ground::buildPath(QSizeF const& size)
 {
-	qreal height = size.height() - 120;
+	qreal height = size.height();
 	QPainterPath pth;
 	qreal x = 0;
 	qreal y = QRandomGenerator::global()->bounded(height);
@@ -37,7 +50,7 @@ QPainterPath Ground::buildPath(QSizeF const& size)
 		y = nextY;
 	}
 	pth.lineTo(size.width(), y);
-	pth.translate(0, 100);
+	pth.translate(0, -pth.boundingRect().y());
 	return pth;
 }
 
@@ -53,6 +66,7 @@ QPainterPath const& Ground::path() const
 
 QSizeF Ground::size() const
 {
+	//return pth.boundingRect().size();
 	return originSize;
 }
 

@@ -8,16 +8,15 @@
 #include <QRandomGenerator>
 
 #include "../model/ground.h"
+#include "../model/world.h"
 
 #include <QDebug>
 
-GroundItem::GroundItem(Ground const& ground): QQuickPaintedItem(),
-  ground(ground)
+
+GroundItem::GroundItem(): QQuickPaintedItem(),
+  ground(*World::ground())
 {
 	setSize(ground.size());
-	qDebug() << Q_FUNC_INFO << size();
-	//connect(this, &QQuickPaintedItem::widthChanged, this, &GroundItem::sizeHasChanged);
-	//connect(this, &QQuickPaintedItem::heightChanged, this, &GroundItem::sizeHasChanged);
 }
 
 QRectF GroundItem::boundingRect() const
@@ -27,11 +26,27 @@ QRectF GroundItem::boundingRect() const
 
 void GroundItem::paint(QPainter *painter)
 {
-	painter->drawRect(boundingRect());
-	painter->setPen(Qt::red);
-	painter->drawRect(ground.path().boundingRect());
+
+	QPainterPath const gr(ground.path());
+	QPainterPath soilPath;
+	soilPath.moveTo(gr.pointAtPercent(1));
+	soilPath.lineTo(boundingRect().bottomRight());
+	soilPath.lineTo(boundingRect().bottomLeft());
+	soilPath.lineTo(gr.pointAtPercent(0));
+	soilPath.addPath(gr);
+	soilPath.closeSubpath();
+
+	painter->save();
 	painter->setRenderHint(QPainter::Antialiasing);
+	painter->setPen(Qt::NoPen);
+	painter->setBrush(QBrush(QPixmap(":/images/world/grass.png")));
+	painter->drawPath(soilPath);
+	painter->setBrush(QBrush(QPixmap(":/images/world/soil.png")));
+	painter->drawPath(soilPath.translated(0, 10));
+	painter->restore();
+	painter->drawRect(boundingRect());
 	painter->drawPath(ground.path());
+
 }
 
 /*GroundItem::GroundItem(QSizeF const& size): QQuickPaintedItem ()
