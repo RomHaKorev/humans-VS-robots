@@ -21,29 +21,6 @@ int main(int argc, char *argv[])
 	QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
 	QApplication app(argc, argv);
-
-	QDomDocument domDocument;
-
-	QString content = R"C(<?xml version="1.0" encoding="UTF-8"?>
-			<root>
-				<Tag1>
-					<Attribute1>5</Attribute1>
-					<Attribute2>5</Attribute2>
-				</Tag1>
-				<Settings\\it.server.com>
-					<Attribute1>1</Attribute1>
-				</Settings\\it.server.com>
-			</root>)C";
-		content.replace("\\", "_");
-	   QString errorStr;
-	   int errorLine;
-	   int errorColumn;
-
-	   if (!domDocument.setContent(content, false, &errorStr, &errorLine, &errorColumn))
-		   qDebug() << errorStr << errorLine << errorColumn;
-
-	return 0;
-
 	qmlRegisterType<Hero>("app.components", 1, 0, "Hero");
 	qmlRegisterType<GroundItem>("app.components", 1, 0, "Ground");
 	qmlRegisterType<Bullet>("app.components", 1, 0, "Bullet");
