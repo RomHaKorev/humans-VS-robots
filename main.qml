@@ -1,4 +1,4 @@
-/*import QtQuick 2.9
+import QtQuick 2.9
 import QtQuick.Window 2.2
 import app.components 1.0
 import QtQuick.Controls 2.2
@@ -131,71 +131,4 @@ Item {
 
 		}
 	}
-}*/
-
-import QtQuick 2.9
-import QtQuick.Window 2.2
-import app.components 1.0
-import QtQuick.Controls 2.2
-import QtGraphicalEffects 1.12
-
-Item {
-	id: app
-	visible: true
-	anchors.fill: parent
-
-	// You get free licenseKeys from https://v-play.net/licenseKey
-	// With a licenseKey you can:
-	//  * Publish your games & apps for the app stores
-	//  * Remove the V-Play Splash Screen or set a custom one (available with the Pro Licenses)
-	//  * Add plugins to monetize, analyze & improve your apps (available with the Pro Licenses)
-	//licenseKey: "<generate one from https://v-play.net/licenseKey>"
-
-		TextField {
-			id: appTextField
-			x: 0
-			y: 329
-			width: 256
-			height: 19
-			anchors.centerIn: parent
-			placeholderText: qsTr('Enter a Number')
-		}
-
-		TextField {
-			id: appTextField1
-			x: 0
-			y: 329
-			width: 256
-			height: 19
-			anchors.verticalCenterOffset: 50
-			anchors.centerIn: parent
-			placeholderText: qsTr('Enter a Number')
-		}
-		TextEdit {
-			id: text1
-			x: 0
-			y: 620
-			width: 24
-			height: 20
-			text: qsTr('A')
-			font.pixelSize: 30
-			anchors.horizontalCenter: appTextField1.horizontalCenter
-		}
-
-		Button {
-			id: button
-			x: 0
-			y: 575
-			width: 24
-			height: 20
-			text: qsTr("Click me please!")
-			anchors.horizontalCenter: appTextField1.horizontalCenter
-			enabled: true
-			onClicked: {
-				const v1 = parseInt(appTextField.text)
-				const v2 = parseInt(appTextField1.text)
-				   text1.text=qsTr('Sum: ' + ( v1 + v2))
-			}
-
-		}
-	}
+}

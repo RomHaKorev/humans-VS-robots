@@ -11,6 +11,7 @@ class SpritesManager
 {
 public:
 	static Character const& hero(unsigned int id);
+	static Character const& robot(unsigned int id);
 	SpritesManager(SpritesManager const&) = delete;
 	void operator=(SpritesManager const&) = delete;
 private:
@@ -20,6 +21,7 @@ private:
 	static std::vector<Character> loadCharacters(QDir const& directory);
 	Character loadCharacter(QDir const& directory);
 	std::vector<Character> const heroes;
+	std::vector<Character> const robots;
 };
 
 #endif // SPRITESMANAGER_H
