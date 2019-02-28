@@ -15,6 +15,7 @@ public:
 	explicit ElementEngine(Ground const& ground, QObject *parent = nullptr);
 	qreal distance() const;
 	void setDistance(qreal);
+	void setStartDistance(qreal);
 	QPointF position() const;
 	Direction direction() const;
 
@@ -31,6 +32,7 @@ signals:
 	void moved();
 
 public slots:
+	void turn(Direction direction);
 	void move(Direction direction);
 	void stop();
 };

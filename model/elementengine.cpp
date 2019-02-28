@@ -5,7 +5,7 @@
 
 ElementEngine::ElementEngine(Ground const& ground, QObject *parent) : QObject(parent),
 	ground(ground),
-	propDistance(500),
+	propDistance(0),
 	animation(new QPropertyAnimation(this, "distance")),
 	currentDirection(Direction::Right)
 {
@@ -18,6 +18,13 @@ ElementEngine::ElementEngine(Ground const& ground, QObject *parent) : QObject(pa
 void ElementEngine::setDistance(qreal distance)
 {
 	propDistance = distance;
+	emit moved();
+}
+
+void ElementEngine::setStartDistance(qreal distance)
+{
+	propDistance = distance;
+	animation->setStartValue(propDistance);
 	emit moved();
 }
 
@@ -34,6 +41,14 @@ QPointF ElementEngine::position() const
 Direction ElementEngine::direction() const
 {
 	return currentDirection;
+}
+
+void ElementEngine::turn(Direction direction)
+{
+	if (direction == currentDirection)
+		return;
+	currentDirection = direction;
+	emit moved();
 }
 
 void ElementEngine::move(Direction direction)

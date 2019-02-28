@@ -54,6 +54,24 @@ void CharacterItem::setLegMovement(unsigned int value)
 	update();
 }
 
+float CharacterItem::distance() const
+{
+	return engine->distance();
+}
+void CharacterItem::setDistance(float value)
+{
+	engine->setStartDistance(value);
+}
+
+void CharacterItem::turnLeft()
+{
+	engine->turn(Direction::Left);
+}
+
+void CharacterItem::turnRight()
+{
+	engine->turn(Direction::Right);
+}
 
 void CharacterItem::moveRight()
 {

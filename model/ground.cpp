@@ -42,7 +42,7 @@ QPainterPath Ground::buildPath(QSizeF const& size)
 		qreal nextX = x + QRandomGenerator::global()->bounded(size.width() / 10);
 		qreal angle = QRandomGenerator::global()->bounded(20.) - 10;
 		qreal boundY = (nextX - x) * qSin(qDegreesToRadians(angle));
-		qreal nextY = qMax(0.0, qMin(height, y + boundY));
+		qreal nextY = qMax(20.0, qMin(height, y + boundY));
 		qDebug() << angle << nextY;
 		//QLineF l(x, y, x + nextX, nextY);
 		pth.lineTo(nextX, nextY);
@@ -50,7 +50,7 @@ QPainterPath Ground::buildPath(QSizeF const& size)
 		y = nextY;
 	}
 	pth.lineTo(size.width(), y);
-	pth.translate(0, -pth.boundingRect().y());
+	pth.translate(0, -pth.boundingRect().y() + 20);
 	return pth;
 }
 

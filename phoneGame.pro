@@ -24,7 +24,8 @@ SOURCES += \
     model/ground.cpp \
     model/world.cpp \
     model/elementengine.cpp \
-    elements/bullet.cpp
+    elements/bullet.cpp \
+    elements/robot.cpp
 
 HEADERS += \
     core/circularsprites.h \
@@ -38,7 +39,9 @@ HEADERS += \
     model/ground.h \
     model/world.h \
     model/elementengine.h \
-    elements/bullet.h
+    elements/bullet.h \
+    elements/robot.h \
+    elements/elements.h
 
 RESOURCES += qml.qrc
 

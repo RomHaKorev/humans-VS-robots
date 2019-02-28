@@ -62,31 +62,35 @@ Item {
 			Rectangle {
 				id: background
 				anchors.fill: parent;
-				color: "#343434"
-				Image { source: "/images/world/sky.png"; fillMode: Image.Stretch ; anchors.fill: parent }
+				gradient: Gradient {
+					GradientStop { position: 0.0; color: "#515f7b" }
+					GradientStop { position: 1.0; color: "#528eA6" }
+				}
 			}
 
 			Item {
 				anchors.fill: parent
-				anchors.leftMargin: parent.width/3
-				anchors.rightMargin: 50
+				anchors.leftMargin: 0//parent.width/3
+				anchors.rightMargin: 0
 				Ground {
 					id: ground
 					anchors.leftMargin: 0
 					anchors.bottom: parent.bottom
 					property int offset: 0
 					x: {
-						if ((width -hero.x)>=parent.width)
+						if ((width -hero.x)>=parent.width && hero.x > 100)
 						{
-							offset = -hero.x
-							return -hero.x
+							offset = -hero.x + 100
+							return -hero.x + 100
 						}
 						return offset
 					}
 					Hero {
 						id: hero
+						distance: 100
 					}
-					Hero {
+					Robot {
+						distance: 800
 					}
 				}
 			}
