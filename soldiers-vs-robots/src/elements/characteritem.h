@@ -7,7 +7,7 @@
 
 #include "../common.h"
 
-#include "model/elementengine.h"
+#include "../model/elementengine.h"
 
 class Ground;
 class Character;

@@ -4,7 +4,7 @@
 #include <QPixmap>
 #include <QDir>
 
-#include "common.h"
+#include "../common.h"
 #include "sprite.h"
 
 class CircularSprites

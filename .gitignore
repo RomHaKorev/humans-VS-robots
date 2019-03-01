@@ -1,2 +1,6 @@
 **/*.pro.user
 **/*.autosave
+**/*.o
+**/Makefile
+build-*/*
+

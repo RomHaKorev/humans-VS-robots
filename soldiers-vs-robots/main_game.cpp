@@ -6,14 +6,11 @@
 #include <QGraphicsView>
 
 #include <QQmlContext>
+#include "src/model/world.h"
+#include "src/elements/hero.h"
+#include "src/elements/bullet.h"
+#include "src/elements/grounditem.h"
 
-#include <QDomDocument>
-
-#include "model/world.h"
-
-#include "elements/hero.h"
-#include "elements/bullet.h"
-#include "elements/grounditem.h"
 
 int main(int argc, char *argv[])
 {
@@ -25,7 +22,7 @@ int main(int argc, char *argv[])
 	qmlRegisterType<GroundItem>("app.components", 1, 0, "Ground");
 	qmlRegisterType<Bullet>("app.components", 1, 0, "Bullet");
 
-	QQuickView view(QStringLiteral("qrc:/main.qml"));
+    QQuickView view(QStringLiteral("qrc:/Game.qml"));
 
 	/*GroundItem* groundItem;
 	Hero* hero(new Hero());
@@ -42,6 +39,10 @@ int main(int argc, char *argv[])
 	QObject::connect(item, SIGNAL(moveRight()),
 						 hero, SLOT(moveRight()));*/
 
-	view.showMaximized();
+    //view.showMaximized();
+
+    QWidget* widget = new QWidget();
+    widget->setFixedSize(200, 800);
+    widget->show();
 	return app.exec();
 }
