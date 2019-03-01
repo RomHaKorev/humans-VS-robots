@@ -1,5 +1,0 @@
-<RCC>
-    <qresource prefix="/">
-        <file>tst_gameworld.qml</file>
-    </qresource>
-</RCC>

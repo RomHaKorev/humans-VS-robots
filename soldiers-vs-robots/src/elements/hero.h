@@ -3,9 +3,6 @@
 
 #include "characteritem.h"
 
-class Ground;
-class Character;
-
 class Hero : public CharacterItem
 {
 public:

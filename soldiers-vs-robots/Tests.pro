@@ -1,16 +1,16 @@
-include(./config.pri)
+include(src/src.pri)
+include(config.pri)
 
-CONFIG += warn_on qmltestcase
+QT += testlib
+QT -= gui
+
+CONFIG += qt console warn_on depend_includepath testcase
+CONFIG -= app_bundle
 
 TEMPLATE = app
 
-DISTFILES += \
-    tst_gameworld.qml \
-    Tests/tst_gameworld.qml
+SOURCES +=  Tests/tst_characterunittests.cpp \
+    Tests/helpers/charactertesthelper.cpp
 
-SOURCES = main_tests.cpp
-
-include(./src/src.pri)
-
-RESOURCES += \
-    Tests/qml_tests.qrc
+HEADERS += \
+    Tests/helpers/charactertesthelper.h

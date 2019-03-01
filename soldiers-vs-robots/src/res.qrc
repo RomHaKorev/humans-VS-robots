@@ -6,9 +6,14 @@
         <file>images/heroes/character1/running/2.png</file>
         <file>images/heroes/character1/running/3.png</file>
         <file>images/heroes/character1/running/4.png</file>
-        <file>images/heroes/character1/kneeling.svg</file>
         <file>images/world/grass.png</file>
         <file>images/world/sky.png</file>
         <file>images/world/soil.png</file>
+        <file>images/enemies/type1/kneeling.png</file>
+        <file>images/enemies/type1/standing.png</file>
+        <file>images/enemies/type1/running/1.png</file>
+        <file>images/enemies/type1/running/2.png</file>
+        <file>images/enemies/type1/running/3.png</file>
+        <file>images/enemies/type1/running/4.png</file>
     </qresource>
 </RCC>

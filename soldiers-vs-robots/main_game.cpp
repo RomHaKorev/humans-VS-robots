@@ -6,18 +6,18 @@
 #include <QGraphicsView>
 
 #include <QQmlContext>
-#include "src/model/world.h"
-#include "src/elements/hero.h"
-#include "src/elements/bullet.h"
-#include "src/elements/grounditem.h"
 
+#include "model/world.h"
+
+#include "elements/elements.h"
 
 int main(int argc, char *argv[])
 {
-	World::init(QSizeF(3000, 50));
+	World::init(QSizeF(3000, 150));
 	QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
 	QApplication app(argc, argv);
+	qmlRegisterType<Robot>("app.components", 1, 0, "Robot");
 	qmlRegisterType<Hero>("app.components", 1, 0, "Hero");
 	qmlRegisterType<GroundItem>("app.components", 1, 0, "Ground");
 	qmlRegisterType<Bullet>("app.components", 1, 0, "Bullet");
@@ -39,10 +39,6 @@ int main(int argc, char *argv[])
 	QObject::connect(item, SIGNAL(moveRight()),
 						 hero, SLOT(moveRight()));*/
 
-    //view.showMaximized();
-
-    QWidget* widget = new QWidget();
-    widget->setFixedSize(200, 800);
-    widget->show();
+	view.showMaximized();
 	return app.exec();
 }

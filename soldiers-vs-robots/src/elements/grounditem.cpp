@@ -36,40 +36,20 @@ void GroundItem::paint(QPainter *painter)
 	soilPath.addPath(gr);
 	soilPath.closeSubpath();
 
-	painter->save();
+	QRectF const rect = soilPath.boundingRect();
+
 	painter->setRenderHint(QPainter::Antialiasing);
 	painter->setPen(Qt::NoPen);
-	painter->setBrush(QBrush(QPixmap(":/images/world/grass.png")));
-	painter->drawPath(soilPath);
-	painter->setBrush(QBrush(QPixmap(":/images/world/soil.png")));
+	painter->setBrush(QBrush(0x01A200));
+	painter->drawPath(soilPath.translated(0, -5));
+
+	QLinearGradient gradient(rect.topLeft(), rect.bottomLeft()); // diagonal gradient from top-left to bottom-right
+	gradient.setColorAt(0, 0x533014);
+	gradient.setColorAt(1, 0xB45002);
+	painter->setBrush(QBrush(gradient));
 	painter->drawPath(soilPath.translated(0, 10));
-	painter->restore();
-	painter->drawRect(boundingRect());
-	painter->drawPath(ground.path());
-
 }
-
-/*GroundItem::GroundItem(QSizeF const& size): QQuickPaintedItem ()
-{
-	srand (time_t(nullptr));
-	setSize(size);
-	connect(this, &QQuickPaintedItem::widthChanged, this, &GroundItem::sizeHasChanged);
-	connect(this, &QQuickPaintedItem::heightChanged, this, &GroundItem::sizeHasChanged);
-}*/
-
-/*void GroundItem::paint(QPainter *painter)
-{
-	painter->setRenderHint(QPainter::Antialiasing);
-	painter->drawRect(QRectF(QPointF(0,0), size()));
-	painter->drawPath(ground.path());
-}*/
 
 template <typename T> int sgn(T val) {
 	return (T(0) < val) - (val < T(0));
 }
-
-/*void GroundItem::sizeHasChanged()
-{
-	Ground::reset(size());
-	update();
-}*/
