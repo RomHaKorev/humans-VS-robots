@@ -35,6 +35,8 @@ public slots:
 	void turn(Direction direction);
 	void move(Direction direction);
 	void stop();
+private slots:
+	void forceStop();
 };
 
 #endif // ELEMENTENGINE_H

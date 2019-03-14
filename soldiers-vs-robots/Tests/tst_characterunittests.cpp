@@ -10,32 +10,42 @@
 
 class CharacterUnitTests : public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 
 private:
-    CharacterItem* sut;
+	CharacterItem* sut;
 public:
-    CharacterUnitTests() {}
-    ~CharacterUnitTests() {}
+	CharacterUnitTests() {}
+	~CharacterUnitTests() {}
 
 private slots:
 
 void initTestCase()
 {
-    sut = new Hero();
-    World::init(QSizeF(1000, 300));
+	sut = new Hero();
+	sut->setDistance(0);
+	World::init(QSizeF(1000, 300));
 }
 
 void cleanupTestCase()
 {
-    sut->setDistance(0);
+	//sut->setDistance(0);
+	sut->deleteLater();
 }
 
 void test_whenAskToMoveRightThenHeroShouldMove()
 {
-    CharacterTestHelper helper(sut);
-    sut->moveRight();
-    QVERIFY(helper.isMovingToRight());
+	CharacterTestHelper helper(sut);
+	sut->moveRight();
+	QVERIFY(helper.isMovingToRight());
+}
+
+void test_whenAskToMoveLeftThenHeroShouldMove()
+{
+	sut->setDistance(100);
+	CharacterTestHelper helper(sut);
+	sut->moveLeft();
+	QVERIFY(helper.isMovingToLeft());
 }
 
 };

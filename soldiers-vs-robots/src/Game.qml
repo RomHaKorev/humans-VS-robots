@@ -1,6 +1,8 @@
-import QtQuick 2.9
-import QtQuick.Window 2.2
-import QtQuick.Controls 2.2
+import QtQuick 2.12
+import QtQuick.Window 2.12
+import QtQuick.Controls 2.5
+import QtGraphicalEffects 1.12
+
 
 import app.components 1.0
 
@@ -63,22 +65,23 @@ Item {
 				id: background
 				anchors.fill: parent;
 				gradient: Gradient {
-					GradientStop { position: 0.0; color: "#515f7b" }
-					GradientStop { position: 1.0; color: "#528eA6" }
+					GradientStop { position: 0.0; color: "#6DCDF7" }
+					GradientStop { position: 1.0; color: "#CDEEFC" }
 				}
 			}
 
 			Item {
 				anchors.fill: parent
-				anchors.leftMargin: 0//parent.width/3
+				anchors.leftMargin: 0
 				anchors.rightMargin: 0
 				Ground {
 					id: ground
+					//color: "#77b643"
 					anchors.leftMargin: 0
 					anchors.bottom: parent.bottom
 					property int offset: 0
 					x: {
-						if ((width -hero.x)>=parent.width && hero.x > 100)
+						if ((width -hero.x) >= (parent.width - 100) && hero.x > 100)
 						{
 							offset = -hero.x + 100
 							return -hero.x + 100
@@ -90,9 +93,16 @@ Item {
 						distance: 100
 					}
 					Robot {
+						id: robot
 						distance: 800
 					}
 				}
+				/*GaussianBlur {
+					   anchors.fill: ground
+					   source: ground
+					   radius: 8
+					   samples: 16
+				   }*/
 			}
 		}
 

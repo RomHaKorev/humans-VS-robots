@@ -31,7 +31,10 @@ template <typename T> int sgn(T val) {
 
 QPainterPath Ground::buildPath(QSizeF const& size)
 {
-	qreal height = size.height();
+	QPainterPath pth;
+	pth.moveTo(0, size.height()/2);
+	pth.lineTo(size.width(), size.height()/2);
+	/*qreal height = size.height();
 	QPainterPath pth;
 	qreal x = 0;
 	qreal y = QRandomGenerator::global()->bounded(height);
@@ -50,7 +53,7 @@ QPainterPath Ground::buildPath(QSizeF const& size)
 		y = nextY;
 	}
 	pth.lineTo(size.width(), y);
-	pth.translate(0, -pth.boundingRect().y() + 20);
+	pth.translate(0, -pth.boundingRect().y() + 20);*/
 	return pth;
 }
 

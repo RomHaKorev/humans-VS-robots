@@ -12,7 +12,7 @@ ElementEngine::ElementEngine(Ground const& ground, QObject *parent) : QObject(pa
 	animation->setDuration(duration(ground.length()));
 	animation->setStartValue(propDistance);
 	animation->setEndValue(ground.length());
-
+	//connect(animation, &QPropertyAnimation::finished, [=] )
 }
 
 void ElementEngine::setDistance(qreal distance)
@@ -63,19 +63,26 @@ void ElementEngine::move(Direction direction)
 		animation->setEndValue(end);
 	}
 	currentDirection = direction;
+	if (propDistance == animation->endValue())
+		return;
 	animation->start();
-}
-
-qreal ElementEngine::endValue(Direction direction)
-{
-	if (direction == Direction::Left)
-		return 500;
-	return ground.length();
 }
 
 void ElementEngine::stop()
 {
 	animation->pause();
+}
+
+void ElementEngine::forceStop()
+{
+	animation->stop();
+}
+
+qreal ElementEngine::endValue(Direction direction)
+{
+	if (direction == Direction::Left)
+		return 0;
+	return ground.length();
 }
 
 int ElementEngine::duration(qreal distance)

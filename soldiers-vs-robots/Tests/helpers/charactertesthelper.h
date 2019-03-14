@@ -6,10 +6,11 @@ class CharacterItem;
 class CharacterTestHelper
 {
 public:
-    CharacterTestHelper(CharacterItem* sut);
-    bool isMovingToRight();
+	CharacterTestHelper(CharacterItem* sut);
+	bool isMovingToRight();
+	bool isMovingToLeft();
 private:
-    CharacterItem* sut;
+	CharacterItem* sut;
 };
 
 #endif // CHARACTERTESTHELPER_H

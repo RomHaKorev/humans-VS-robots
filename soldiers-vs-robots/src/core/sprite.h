@@ -9,7 +9,7 @@ class Sprite
 {
 public:
 	Sprite(QString const& filename);
-	QPixmap const& get(Direction direction) const;
+	QPixmap const& get(Direction direction=Direction::Right) const;
 private:
 	QPixmap const image;
 	QPixmap const reversedImage;

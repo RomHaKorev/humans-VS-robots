@@ -1,7 +1,6 @@
 #ifndef CHARACTER_H
 #define CHARACTER_H
 
-#include <QQuickPaintedItem>
 #include <QDir>
 #include <QPixmap>
 #include <list>
