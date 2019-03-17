@@ -9,8 +9,10 @@
 #include <qmath.h>
 
 
+#include "../core/spritesmanager.h"
 #include "../model/ground.h"
 #include "../model/world.h"
+#include "../model/decoration.h"
 #include "graphicseffects.h"
 
 #include <QDebug>
@@ -18,10 +20,10 @@
 
 GroundItem::GroundItem(): QQuickPaintedItem(),
   ground(*World::ground()),
-  path(buildBackground(ground.size()))
+  background(buildBackground(ground.size()))
 {
-	//setSize(QSizeF(ground.length(), 200));
 	setSize(ground.size());
+
 }
 
 QColor GroundItem::color() const
@@ -38,45 +40,68 @@ QRectF GroundItem::boundingRect() const
 	return QRectF(QPointF(0, 0), size());
 }
 
-QPainterPath GroundItem::boundingPath() const
+QPainterPath GroundItem::boundingPath(QPainterPath const& path, QSizeF const& size)
 {
 	QPainterPath pth(path);
-	pth.lineTo(size().width(), 0);
-	pth.lineTo(size().width(), size().height());
-	pth.lineTo(0, size().height());
+	pth.lineTo(size.width(), 0);
+	pth.lineTo(size.width(), size.height());
+	pth.lineTo(0, size.height());
 	pth.lineTo(0, 0);
 	pth.addRect(0, pth.boundingRect().height(),
-				pth.boundingRect().width(), size().height() - pth.boundingRect().height());
+				pth.boundingRect().width(), size.height() - pth.boundingRect().height());
 	return pth;
 }
 
 void GroundItem::paint(QPainter *painter)
 {
 	painter->setRenderHint(QPainter::Antialiasing);
-	painter->setPen(Qt::NoPen);
-	//QRectF const rect = path.boundingRect();
-	//QLinearGradient gradient(rect.topLeft(), rect.bottomLeft()); // diagonal gradient from top-left to bottom-right
-	//gradient.setColorAt(0, 0x77b643);
-	//gradient.setColorAt(1, 0x2e6d67);
-	//painter->setBrush(QBrush(0x77b643));
-	painter->setBrush(QBrush(0x77b643));
-	QPainterPath const& bounds(boundingPath());
-	painter->drawPath(bounds);
-	painter->setClipPath(bounds);
-
-	painter->setBrush(Qt::NoBrush);
-	painter->setPen(QPen(QBrush(0x2e6d67), 24));
-	GraphicsEffects::drawWithBlurEffect(painter, path);
+	painter->drawPixmap(0, 0, background);
 }
 
-QPainterPath GroundItem::buildBackground(QSizeF const& size)
+QPainterPath GroundItem::buildBackgroundShape(QSizeF const& size)
 {
 	QPainterPath pathFirstPlan = buildPath(QSizeF(size.width(), size.height() / 4));
 	return pathFirstPlan;
 }
 
 
-QPainterPath GroundItem::buildPath(const QSizeF &size)
+QPixmap GroundItem::buildBackground(QSizeF const& size)
+{
+	QPainterPath const path(buildBackgroundShape(size));
+	QPainterPath const& bounds(boundingPath(path, size));
+
+	QPixmap backgroundPixmap(size.toSize() + QSize(0, 100));
+	backgroundPixmap.fill(Qt::transparent);
+
+	QPainter painter(&backgroundPixmap);
+	painter.translate(0, 100);
+	painter.setRenderHint(QPainter::Antialiasing);
+	painter.setBrush(QBrush(0x77b643));
+
+	painter.drawPath(bounds);
+	painter.save();
+	painter.setClipPath(bounds);
+
+	painter.setBrush(Qt::NoBrush);
+	painter.setPen(QPen(QBrush(0x2e6d67), 24));
+
+	GraphicsEffects::drawWithBlurEffect(painter, path);
+
+	painter.restore();
+
+	for (double delta = 0; delta < 100; delta += QRandomGenerator::global()->bounded(1, 5))
+	{
+		Decoration const& deco = SpritesManager::decoration();
+		QPointF p = path.pointAtPercent(delta/100.0);
+		QPixmap const pix(deco.pixmap(true).scaledToHeight(100, Qt::SmoothTransformation));
+		painter.drawPixmap(p - QPointF(0, pix.height()) * 0.7, pix);
+	}
+
+	return backgroundPixmap;
+}
+
+
+QPainterPath GroundItem::buildPath(QSizeF const& size)
 {
 	QPainterPath pth;
 	qreal x = 0;
@@ -105,7 +130,7 @@ QPainterPath GroundItem::buildPath(const QSizeF &size)
 	return pth;
 }
 
-QPair<QPointF, QPointF> GroundItem::controlPoints( const QPointF& p0, const QPointF& p1, const QPointF& p2, qreal t )
+QPair<QPointF, QPointF> GroundItem::controlPoints(QPointF const& p0, QPointF const& p1, QPointF const& p2, qreal t)
 {
 	QPair<QPointF, QPointF> pair;
 	qreal d01 = qSqrt( ( p1.x() - p0.x() ) * ( p1.x() - p0.x() ) + ( p1.y() - p0.y() ) * ( p1.y() - p0.y() ) );

@@ -10,11 +10,11 @@
 #include "model/world.h"
 
 #include "elements/elements.h"
-
+#include <QScreen>
 
 int main(int argc, char *argv[])
 {
-	World::init(QSizeF(3000, 150));
+	World::init(QSizeF(3000, 250));
 	QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
 	QApplication app(argc, argv);

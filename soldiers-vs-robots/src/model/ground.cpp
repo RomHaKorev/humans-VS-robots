@@ -32,8 +32,8 @@ template <typename T> int sgn(T val) {
 QPainterPath Ground::buildPath(QSizeF const& size)
 {
 	QPainterPath pth;
-	pth.moveTo(0, size.height()/2);
-	pth.lineTo(size.width(), size.height()/2);
+	pth.moveTo(0, size.height()/2 + 100);
+	pth.lineTo(size.width(), size.height()/2 + 100);
 	/*qreal height = size.height();
 	QPainterPath pth;
 	qreal x = 0;

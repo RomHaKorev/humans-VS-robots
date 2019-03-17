@@ -27,18 +27,18 @@ QPixmap applyEffectToImage(QPixmap const& src, QGraphicsEffect *effect, int exte
 	return res;
 }
 
-void drawWithBlurEffect(QPainter* painter, QPainterPath const& path)
+void drawWithBlurEffect(QPainter& painter, QPainterPath const& path)
 {
-	QPixmap pix(path.boundingRect().size().toSize() + QSize(painter->pen().width(), painter->pen().width()));
+	QPixmap pix(path.boundingRect().size().toSize() + QSize(painter.pen().width(), painter.pen().width()));
 	QPainter p(&pix);
-	p.setPen(painter->pen());
-	p.setBrush(painter->brush());
-	p.setClipPath(painter->clipPath());
+	p.setPen(painter.pen());
+	p.setBrush(painter.brush());
+	p.setClipPath(painter.clipPath());
 	p.drawPath(path);
 	QGraphicsBlurEffect* blurEffect = new QGraphicsBlurEffect();
 	blurEffect->setBlurRadius(p.pen().width()/2);
 	QPixmap const blurry = applyEffectToImage(pix, blurEffect);
 	//blurEffect->deleteLater();
-	painter->drawPixmap(0, 0, blurry);
+	painter.drawPixmap(0, 0, blurry);
 }
 }

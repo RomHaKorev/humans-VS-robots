@@ -14,19 +14,20 @@ class GroundItem : public QQuickPaintedItem
 public:
 	GroundItem();
 	virtual QRectF boundingRect() const override;
-	virtual void paint(QPainter *painter) override;
+	virtual void paint(QPainter* painter) override;
 
 	QColor color() const;
 
-	QPainterPath boundingPath() const;
-
 private:
 	Ground const& ground;
-	QPainterPath path;
 	QBrush brush;
-	static QPainterPath buildBackground(QSizeF const& size);
-	static QPair<QPointF, QPointF> controlPoints(const QPointF& p0, const QPointF& p1, const QPointF& p2, qreal t=0.25);
+	QPixmap const background;
+
+	QPixmap buildBackground(QSizeF const& size);
+	static QPainterPath buildBackgroundShape(QSizeF const& size);
+	static QPair<QPointF, QPointF> controlPoints(QPointF const& p0, QPointF const& p1, QPointF const& p2, qreal t=0.25);
 	static QPainterPath buildPath(QSizeF const& size);
+	static QPainterPath boundingPath(QPainterPath const& path, QSizeF const& size);
 
 public slots:
 	void setColor(QColor const& color);
