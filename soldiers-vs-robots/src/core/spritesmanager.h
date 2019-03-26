@@ -14,6 +14,7 @@ public:
 	static Character const& hero(unsigned int id);
 	static Character const& robot(unsigned int id);
 	static Decoration const& decoration();
+    static Decoration const& decoration(int id);
 	SpritesManager(SpritesManager const&) = delete;
 	void operator=(SpritesManager const&) = delete;
 private:

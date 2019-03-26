@@ -23,12 +23,6 @@ private:
 	QBrush brush;
 	QPixmap const background;
 
-	QPixmap buildBackground(QSizeF const& size);
-	static QPainterPath buildBackgroundShape(QSizeF const& size);
-	static QPair<QPointF, QPointF> controlPoints(QPointF const& p0, QPointF const& p1, QPointF const& p2, qreal t=0.25);
-	static QPainterPath buildPath(QSizeF const& size);
-	static QPainterPath boundingPath(QPainterPath const& path, QSizeF const& size);
-
 public slots:
 	void setColor(QColor const& color);
 };

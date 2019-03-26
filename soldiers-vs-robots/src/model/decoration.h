@@ -11,7 +11,11 @@ class Decoration
 {
 public:
 	QPixmap pixmap(bool random) const;
-	Decoration(QString const& filename);
+    Decoration(int id, QString const& filename);
+
+    inline QSizeF size() const { return sprite.size(); }
+    inline qreal height() const { return size().height(); }
+    int const id;
 private:
 	Sprite const sprite;
 };

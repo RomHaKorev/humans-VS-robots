@@ -11,8 +11,9 @@ SOURCES += \
     $$PWD/model/elementengine.cpp \
     $$PWD/elements/bullet.cpp \
     $$PWD/elements/robot.cpp \
-    $$PWD/elements/graphicseffects.cpp \
-    $$PWD/model/decoration.cpp
+    $$PWD/model/decoration.cpp \
+    $$PWD/elements/utils/backgroundbuilder.cpp \
+    $$PWD/elements/utils/graphicseffects.cpp
 
 HEADERS += \
     $$PWD/core/circularsprites.h \
@@ -28,8 +29,9 @@ HEADERS += \
     $$PWD/model/elementengine.h \
     $$PWD/elements/bullet.h \
     $$PWD/elements/robot.h \
-    $$PWD/elements/graphicseffects.h \
-    $$PWD/model/decoration.h
+    $$PWD/model/decoration.h \
+    $$PWD/elements/utils/backgroundbuilder.h \
+    $$PWD/elements/utils/graphicseffects.h
 
 RESOURCES += $$PWD/qml.qrc \
     $$PWD/res.qrc

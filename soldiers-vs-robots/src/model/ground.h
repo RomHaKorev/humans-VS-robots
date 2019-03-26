@@ -18,7 +18,7 @@ public:
 private:
 	QPainterPath pth;
 	QSizeF originSize;
-	static QPainterPath buildPath(QSizeF const& size);
+    static QPainterPath buildPath(QSizeF const& size);
 };
 
 #endif // GROUND_H

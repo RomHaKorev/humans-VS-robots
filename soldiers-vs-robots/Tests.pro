@@ -13,7 +13,7 @@ QMAKE_LFLAGS += --coverage
 TEMPLATE = app
 
 SOURCES +=  Tests/tst_characterunittests.cpp \
-    Tests/helpers/charactertesthelper.cpp
+    Tests/helpers/charactertesthelper.cpp \
 
 HEADERS += \
-    Tests/helpers/charactertesthelper.h
+    Tests/helpers/charactertesthelper.h \
