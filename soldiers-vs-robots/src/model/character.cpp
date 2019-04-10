@@ -4,9 +4,9 @@
 #include <QDebug>
 
 Character::Character(QDir const& spritesDirectory):
-	standing(spritesDirectory.filePath("standing.png")),
-	kneeling(spritesDirectory.filePath("kneeling.png")),
-	runningSteps(CircularSprites(QDir(spritesDirectory.filePath("running"))))
+	standing(spritesDirectory.filePath("standing.png"), characterSize),
+	kneeling(spritesDirectory.filePath("kneeling.png"), characterSize),
+	runningSteps(CircularSprites(QDir(spritesDirectory.filePath("running")), characterSize))
 {}
 
 void Character::paint(QPainter& painter, Move moveStatus, Direction direction, unsigned int step) const

@@ -13,7 +13,6 @@
         <file>images/enemies/type1/running/3.png</file>
         <file>images/enemies/type1/running/4.png</file>
         <file>images/world/trees/1.png</file>
-        <file>images/world/trees/2.png</file>
         <file>images/world/trees/3.png</file>
     </qresource>
 </RCC>

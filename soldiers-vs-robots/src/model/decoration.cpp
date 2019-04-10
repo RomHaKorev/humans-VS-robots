@@ -3,9 +3,9 @@
 #include <QPainter>
 #include <QDebug>
 
-Decoration::Decoration(int id, QString const& filename):
-    sprite(filename),
-    id(id)
+Decoration::Decoration(int id, QString const& filename, QSize const& size):
+	id(id),
+	sprite(filename, size)
 {}
 
 

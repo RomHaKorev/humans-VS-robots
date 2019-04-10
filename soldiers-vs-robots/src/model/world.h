@@ -10,15 +10,15 @@ class World : public QObject
 public:
 	World(World const&) = delete;
 	void operator=(World const&) = delete;
-	static ElementEngine* newEngine(QObject* parent = nullptr);
+	static ElementEngine* engine(QObject* parent = nullptr);
 	static void init(QSizeF const& size);
 	static Ground* ground();
 private:
 	Ground* m_ground;
 	World(QSizeF const& size);
 	void reset(QSizeF const& size);
-	static World& instance(QSizeF const& size = QSizeF());
-	ElementEngine* createEngine(QObject* parent = nullptr) const;
+	static World& instance(QSizeF const& size=QSizeF());
+	ElementEngine* createEngine(QObject* parent=nullptr) const;
 };
 
 #endif // WORLD_H

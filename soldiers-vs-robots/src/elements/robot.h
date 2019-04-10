@@ -7,6 +7,8 @@ class Robot : public CharacterItem
 {
 public:
 	Robot();
+
+//	virtual CharacterType type() const override { return CharacterType::Ennemy; }
 };
 
 #endif // ROBOT_H

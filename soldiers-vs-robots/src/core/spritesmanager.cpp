@@ -43,8 +43,8 @@ Decoration const& SpritesManager::decoration()
 
 Decoration const& SpritesManager::decoration(int id)
 {
-    Decoration const& d = instance().decorations.at(id);
-    return d;
+	Decoration const& d = instance().decorations.at(id);
+	return d;
 }
 
 std::vector<Character> SpritesManager::loadCharacters(QDir const& directory)
@@ -60,11 +60,11 @@ std::vector<Character> SpritesManager::loadCharacters(QDir const& directory)
 std::vector<Decoration> SpritesManager::loadWorldElements(QDir const& directory)
 {
 	std::vector<Decoration> l;
-    int id = 0;
+	int id = 0;
 	for(QString const& filename: directory.entryList())
 	{
-        l.push_back(Decoration(id, directory.filePath(filename)));
-        ++id;
+		l.push_back(Decoration(id, directory.filePath(filename), treeSize));
+		++id;
 	}
 	return l;
 }

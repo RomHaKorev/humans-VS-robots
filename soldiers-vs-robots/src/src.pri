@@ -13,7 +13,9 @@ SOURCES += \
     $$PWD/elements/robot.cpp \
     $$PWD/model/decoration.cpp \
     $$PWD/elements/utils/backgroundbuilder.cpp \
-    $$PWD/elements/utils/graphicseffects.cpp
+    $$PWD/elements/utils/graphicseffects.cpp \
+    $$PWD/elements/ia.cpp \
+    $$PWD/elements/characterfactory.cpp
 
 HEADERS += \
     $$PWD/core/circularsprites.h \
@@ -31,7 +33,9 @@ HEADERS += \
     $$PWD/elements/robot.h \
     $$PWD/model/decoration.h \
     $$PWD/elements/utils/backgroundbuilder.h \
-    $$PWD/elements/utils/graphicseffects.h
+    $$PWD/elements/utils/graphicseffects.h \
+    $$PWD/elements/ia.h \
+    $$PWD/elements/characterfactory.h
 
 RESOURCES += $$PWD/qml.qrc \
     $$PWD/res.qrc

@@ -29,8 +29,14 @@ public:
 
 	virtual bool contains(QPointF const& point) const override;
 
+	inline int layerIndex() const { return 0; }
+
+//	virtual CharacterType type() const = 0;
+
+	bool inSight(CharacterItem const* other) const;
+
 protected:
-	CharacterItem(Character const& sprites);
+	CharacterItem(ElementEngine* engine, Character const& sprites);
 
 private:
 	Move moveStatus;

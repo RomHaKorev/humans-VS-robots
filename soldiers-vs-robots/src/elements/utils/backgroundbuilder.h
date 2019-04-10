@@ -11,7 +11,7 @@ QPair<QPointF, QPointF> controlPoints(QPointF const& p0, QPointF const& p1, QPoi
 QPainterPath buildPath(QSizeF const& size);
 QPainterPath boundingPath(QPainterPath const& path, QSizeF const& size);
 
-void paintDecoration(QPainter& painter, QPainterPath const& path, int offsetJitter, quint32 density);
+void paintDecoration(QPainter& painter, QPainterPath const& path, double offsetJitter, quint32 density);
 
 };
 

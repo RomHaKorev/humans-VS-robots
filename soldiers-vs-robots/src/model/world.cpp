@@ -25,6 +25,7 @@ ElementEngine* World::createEngine(QObject* parent) const
 	return new ElementEngine(*m_ground, parent);
 }
 
+
 World& World::instance(QSizeF const& size)
 {
 	static World instance(size);
@@ -34,7 +35,7 @@ World& World::instance(QSizeF const& size)
 }
 
 
-ElementEngine* World::newEngine(QObject* parent)
+ElementEngine* World::engine(QObject* parent)
 {
 	return instance().createEngine(parent);
 }

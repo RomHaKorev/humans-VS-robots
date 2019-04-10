@@ -16,6 +16,13 @@ enum Direction
 	Right = 1
 };
 
-QSize const characterSize(50, 50);
+enum CharacterType
+{
+	Ally,
+	Ennemy
+};
+
+QSize const characterSize(100, 100);
+QSize const treeSize(220, 300);
 
 #endif // COMMON_H

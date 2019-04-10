@@ -12,13 +12,14 @@
 
 #include "bullet.h"
 
+#include <QLineF>
 
-CharacterItem::CharacterItem(Character const& sprites):
+CharacterItem::CharacterItem(ElementEngine* engine, Character const& sprites):
 	QQuickPaintedItem(),
 	moveStatus(Move::Standing),
 	sprites(sprites),
 	propLegMovement(0),
-	engine(World::newEngine(this))
+	engine(engine)
 {
 	legAnimation = new QPropertyAnimation(this, "legMovement");
 	legAnimation->setDuration(500);
@@ -127,4 +128,11 @@ bool CharacterItem::contains(QPointF const& point) const
 	QRegion region(b);
 	region.translate(position().toPoint());
 	return region.contains(point.toPoint());
+}
+
+
+bool CharacterItem::inSight(CharacterItem const* other) const
+{
+	qDebug() << Q_FUNC_INFO << (QLineF(other->position(), this->position()).length());
+	return abs(QLineF(other->position(), this->position()).length()) < 400.0;
 }

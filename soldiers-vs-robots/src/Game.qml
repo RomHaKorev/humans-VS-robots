@@ -30,10 +30,22 @@ Item {
 				lastPressed = now
 				event.accepted = true;
 			}
+			else if (event.key === Qt.Key_Left)
+			{
+				hero.moveLeft()
+				lastKey = event.key
+				lastPressed = now
+				event.accepted = true;
+			}
 			else if (event.key === Qt.Key_Down) {
 				hero.kneel()
 				lastKey = event.key
 				lastPressed = now
+				event.accepted = true;
+			}
+			else if (event.key === Qt.Key_Space)
+			{
+				hero.fire()
 				event.accepted = true;
 			}
 		}
@@ -76,33 +88,33 @@ Item {
 				anchors.rightMargin: 0
 				Ground {
 					id: ground
-					//color: "#77b643"
+					property int characterOffset: 200
 					anchors.leftMargin: 0
 					anchors.bottom: parent.bottom
 					property int offset: 0
 					x: {
-						if ((width -hero.x) >= (parent.width - 100) && hero.x > 100)
+						if ((width -hero.x) >= (parent.width - characterOffset) && hero.x > characterOffset)
 						{
-							offset = -hero.x + 100
-							return -hero.x + 100
+							offset = -hero.x + characterOffset
+							return -hero.x + characterOffset
 						}
 						return offset
 					}
-					Hero {
-						id: hero
-						distance: 100
-					}
-					Robot {
+					Item {
+						id: heroLayer
+						objectName: "heroLayer"
+						anchors.fill: parent
+						Hero {
+							id: hero
+							objectName: "hero"
+							distance: ground.characterOffset
+						}
+					/*Robot {
 						id: robot
 						distance: 800
+					}*/
 					}
 				}
-				/*GaussianBlur {
-					   anchors.fill: ground
-					   source: ground
-					   radius: 8
-					   samples: 16
-				   }*/
 			}
 		}
 

@@ -2,14 +2,16 @@
 
 #include <QPainter>
 
-QPixmap load(QString const& path)
+QPixmap load(QString const& path, QSize const& size)
 {
 	QPixmap pix(path);
+	if (!size.isNull())
+		return pix.scaled(size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 	return pix;
 }
 
-Sprite::Sprite(QString const& filename):
-	image(load(filename).scaled(characterSize, Qt::KeepAspectRatio, Qt::SmoothTransformation)),
+Sprite::Sprite(QString const& filename, QSize const& size):
+	image(load(filename, size)),
 	reversedImage(image.transformed(QTransform().scale(-1, 1), Qt::SmoothTransformation))
 {}
 
